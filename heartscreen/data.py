@@ -17,8 +17,7 @@ from heartscreen.schema import (
     binary_target,
 )
 
-# SHA-256 of processed.cleveland.data from the UCI archive.
-# That file is redistributed under CC BY 4.0; see data/SOURCES.md.
+# UCI processed.cleveland.data, redistributed under CC BY 4.0. See data/SOURCES.md.
 CLEVELAND_SHA256 = "a74b7efa387bc9d108d7d0115d831fe9b414b29ae7124f331b622b4efa0427c8"
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -29,11 +28,11 @@ _NOTICE_MARKERS = ("CC BY 4.0", "10.24432/C52P4X")
 
 
 class DataError(ValueError):
-    """A Cleveland file, notice, or row that this project will not use."""
+    """Invalid Cleveland file, attribution notice, or row."""
 
 
 def check_attribution(data_path: Path, notice_path: Path) -> None:
-    """Refuse a file that is not the Cleveland copy named in the notice."""
+    """Check the Cleveland file hash and the attribution notice."""
     data_path = Path(data_path)
     notice_path = Path(notice_path)
     digest = hashlib.sha256(data_path.read_bytes()).hexdigest()
@@ -52,13 +51,13 @@ def load_cleveland(
     path: Path = DEFAULT_DATA_PATH,
     notice_path: Path = DEFAULT_NOTICE_PATH,
 ) -> pd.DataFrame:
-    """Load the attributed Cleveland file, then check every row."""
+    """Load the Cleveland file after the attribution check."""
     check_attribution(path, notice_path)
     return parse_cleveland(Path(path).read_text(encoding="utf-8"))
 
 
 def parse_cleveland(text: str) -> pd.DataFrame:
-    """Turn Cleveland CSV text into a frame. '?' is allowed only in ca and thal."""
+    """Parse Cleveland CSV text. '?' is allowed only in ca and thal."""
     records = []
     for line_no, line in enumerate(text.splitlines(), start=1):
         if not line.strip():
@@ -83,7 +82,7 @@ def parse_cleveland(text: str) -> pd.DataFrame:
 
 
 def features_and_target(frame: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
-    """Return the 13 features and the binary label."""
+    """Return the feature columns and the binary label."""
     required = FEATURE_NAMES + [TARGET_NAME]
     missing = [name for name in required if name not in frame.columns]
     if missing:

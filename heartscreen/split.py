@@ -1,11 +1,11 @@
-"""Split features and the binary target into train and test sets."""
+"""Stratified train/test split with a fixed seed."""
 
 from __future__ import annotations
 
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-# Fixed so every model trains and scores on the same rows.
+# Fixed seed and fraction so the held-out rows stay the same.
 SEED = 42
 TEST_SIZE = 0.2
 
