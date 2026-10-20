@@ -8,26 +8,26 @@ def _split():
 
 
 def test_split_is_deterministic():
-    _, _, (X1_tr, X1_te, _, _) = _split()
-    _, _, (X2_tr, X2_te, _, _) = _split()
-    assert list(X1_tr.index) == list(X2_tr.index)
-    assert list(X1_te.index) == list(X2_te.index)
+    _, _, (X_train_a, X_test_a, _, _) = _split()
+    _, _, (X_train_b, X_test_b, _, _) = _split()
+    assert list(X_train_a.index) == list(X_train_b.index)
+    assert list(X_test_a.index) == list(X_test_b.index)
 
 
 def test_train_and_test_cover_every_row_once():
-    features, _, (X_tr, X_te, _, _) = _split()
-    train, test = set(X_tr.index), set(X_te.index)
+    features, _, (X_train, X_test, _, _) = _split()
+    train, test = set(X_train.index), set(X_test.index)
     assert train.isdisjoint(test)
     assert train | test == set(features.index)
 
 
-def test_test_fraction_matches_the_constant():
-    features, _, (_, X_te, _, _) = _split()
-    assert len(X_te) == round(len(features) * TEST_SIZE)
+def test_held_out_count_matches_test_size():
+    features, _, (_, X_test, _, _) = _split()
+    assert len(X_test) == round(len(features) * TEST_SIZE)
 
 
 def test_positive_rate_is_preserved():
-    _, target, (_, _, y_tr, y_te) = _split()
+    _, target, (_, _, y_train, y_test) = _split()
     full = target.mean()
-    assert abs(y_tr.mean() - full) < 0.02
-    assert abs(y_te.mean() - full) < 0.02
+    assert abs(y_train.mean() - full) < 0.02
+    assert abs(y_test.mean() - full) < 0.02
