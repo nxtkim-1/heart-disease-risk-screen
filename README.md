@@ -75,7 +75,7 @@ Test set: 61 patients (33 negative, 28 positive), threshold 0.5. Numbers come fr
 | Random forest | TBD | TBD | TBD | TBD |
 <!-- results:end -->
 
-Figures (ROC curves, confusion matrices): TBD.
+Figures (ROC curves, confusion matrices) are in `reports/figures/`, one pair per model: `majority_roc.png` and `majority_confusion.png` so far. Regenerate them with `python -m heartscreen.figures`.
 
 ## Demo
 
@@ -91,7 +91,10 @@ source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 pytest
 python -m heartscreen.train      # rewrites reports/metrics.json
+python -m heartscreen.figures    # rewrites reports/figures/
 ```
+
+Step-by-step instructions with a troubleshooting table: `docs/SETUP.md`.
 
 ## Tests
 
