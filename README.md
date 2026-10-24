@@ -98,7 +98,7 @@ Step-by-step instructions with a troubleshooting table: `docs/SETUP.md`.
 
 ## Tests
 
-`pytest` runs on every push and pull request in GitHub Actions. The tests cover the schema and label, rejected rows, the hash and notice checks, the split (repeatable, disjoint, stratified, right size), preprocessing fitted on training rows only, the metric math on a hand-checked case, and the committed `metrics.json`.
+`pytest` and a secret scan (gitleaks, over the full git history) run on every push and pull request in GitHub Actions. The tests cover the schema and label, rejected rows, the hash and notice checks, the split (repeatable, disjoint, stratified, right size), preprocessing fitted on training rows only, the metric math on a hand-checked case, and the committed `metrics.json`.
 
 ## Limitations
 
