@@ -50,6 +50,14 @@ python -m heartscreen.train
 
 This rewrites `reports/metrics.json`. If `git status` then shows that file as changed, something in your setup differs from the one the committed numbers came from.
 
+## 6. Run the app
+
+```bash
+streamlit run app/streamlit_app.py
+```
+
+This opens a local page in your browser where you can enter one patient's values and see the random forest's probability. It is educational only, not medical advice.
+
 ## If something fails
 
 | Symptom | Likely cause and fix |

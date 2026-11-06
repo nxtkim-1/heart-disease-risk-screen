@@ -92,6 +92,7 @@ pip install -r requirements.txt
 pytest
 python -m heartscreen.train      # rewrites reports/metrics.json
 python -m heartscreen.figures    # rewrites reports/figures/
+streamlit run app/streamlit_app.py   # local app in the browser
 ```
 
 Step-by-step instructions with a troubleshooting table: `docs/SETUP.md`.
