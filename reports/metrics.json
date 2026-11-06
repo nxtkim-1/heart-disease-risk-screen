@@ -1,6 +1,10 @@
 {
   "models": {
     "majority": {
+      "cv": {
+        "roc_auc_mean": 0.5,
+        "roc_auc_std": 0.0
+      },
       "test": {
         "confusion_matrix": {
           "fn": 28,
@@ -11,6 +15,24 @@
         "roc_auc": 0.5,
         "sensitivity": 0.0,
         "specificity": 1.0,
+        "threshold": 0.5
+      }
+    },
+    "random_forest": {
+      "cv": {
+        "roc_auc_mean": 0.8955753184014055,
+        "roc_auc_std": 0.027805456407715784
+      },
+      "test": {
+        "confusion_matrix": {
+          "fn": 2,
+          "fp": 6,
+          "tn": 27,
+          "tp": 26
+        },
+        "roc_auc": 0.9442640692640693,
+        "sensitivity": 0.9285714285714286,
+        "specificity": 0.8181818181818182,
         "threshold": 0.5
       }
     }
