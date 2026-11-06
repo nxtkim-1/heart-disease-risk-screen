@@ -2,7 +2,7 @@
 
 An educational heart-disease risk screen on the UCI Cleveland data. It is not a medical device and gives no medical advice.
 
-Status: in progress, target release `v1.0` on Nov 14, 2026. The loader, the train/test split, the preprocessing pipeline and a majority-class baseline are done. Logistic regression, random forest, figures and a local Streamlit app come next. Results below are TBD until those models run.
+Status: in progress, target release `v1.0` on Nov 14, 2026. The loader, the train/test split, the preprocessing pipeline, a majority-class baseline, a random forest and a local Streamlit app skeleton are done. Logistic regression and figures come next. The results table below has majority-class and random-forest numbers; logistic regression is still TBD.
 
 ## Data
 
@@ -70,9 +70,9 @@ Test set: 61 patients (33 negative, 28 positive), threshold 0.5. Numbers come fr
 <!-- results:start -->
 | Model | ROC AUC | Sensitivity | Specificity | 5-fold CV ROC AUC |
 |---|---|---|---|---|
-| Majority class | 0.50 | 0.00 | 1.00 | TBD |
+| Majority class | 0.50 | 0.00 | 1.00 | 0.50 |
 | Logistic regression | TBD | TBD | TBD | TBD |
-| Random forest | TBD | TBD | TBD | TBD |
+| Random forest | 0.94 | 0.93 | 0.82 | 0.90 |
 <!-- results:end -->
 
 Figures (ROC curves, confusion matrices) are in `reports/figures/`, one pair per model: `majority_roc.png` and `majority_confusion.png` so far. Regenerate them with `python -m heartscreen.figures`.

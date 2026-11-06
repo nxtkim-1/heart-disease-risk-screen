@@ -15,12 +15,12 @@ MODEL_KEYS = {
 }
 
 # Path into a model's entry in metrics.json for each table column.
-# The CV column has no key until a model writes CV scores.
+# The CV column shows the mean only.
 COLUMN_KEYS = {
     "ROC AUC": ("test", "roc_auc"),
     "Sensitivity": ("test", "sensitivity"),
     "Specificity": ("test", "specificity"),
-    "5-fold CV ROC AUC": None,
+    "5-fold CV ROC AUC": ("cv", "roc_auc_mean"),
 }
 
 
