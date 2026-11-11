@@ -2,6 +2,8 @@
 
 An educational heart-disease risk screen on the UCI Cleveland data. It is not a medical device and gives no medical advice.
 
+The finished version of this project is [heart-disease-riskscreening-system](https://github.com/nxtkim-1/heart-disease-riskscreening-system): 920 patients from four hospitals, three models (logistic regression, random forest and XGBoost) and a Streamlit app. This repository is the earlier, smaller rebuild on the 303-patient Cleveland file.
+
 Status: in progress, target release `v1.0` on Nov 14, 2026. The loader, the train/test split, the preprocessing pipeline, a majority-class baseline, a random forest and a local Streamlit app skeleton are done. Logistic regression and figures come next. The results table below has majority-class and random-forest numbers; logistic regression is still TBD.
 
 ## Data
