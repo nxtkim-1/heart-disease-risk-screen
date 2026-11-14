@@ -4,6 +4,35 @@ An educational heart-disease risk screen on the UCI Cleveland data. It is not a 
 
 Status: in progress, target release `v1.0` on Nov 14, 2026. The loader, the train/test split, the preprocessing pipeline, a majority-class baseline, a random forest and a local Streamlit app skeleton are done. Logistic regression and figures come next. The results table below has majority-class and random-forest numbers; logistic regression is still TBD.
 
+## Case study: the 1989 paper behind the data
+
+![Greyscale X-ray of the left coronary artery filled with dye, with two arrows marking narrowed sections](docs/coronary_angiogram.jpg)
+
+*A coronary angiogram: dye in the heart's arteries under X-ray, with arrows on the narrowed sections.
+An example image, not a patient from this dataset. Image: Pantaleo et al., BMC Cancer 2012, 12:231,
+[CC BY 2.0](https://creativecommons.org/licenses/by/2.0/), via
+[Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Angiography_coronary_stenosis_01.jpg).*
+
+The data comes from one paper: Detrano et al., "International application of a new probability
+algorithm for the diagnosis of coronary artery disease", *American Journal of Cardiology*, 1989
+([doi:10.1016/0002-9149(89)90524-9](https://doi.org/10.1016/0002-9149(89)90524-9)).
+
+The authors built a model on 303 patients at the Cleveland Clinic that turned clinical measurements
+and non-invasive test results into a probability of coronary disease. Then they tried it on patients
+at three other sites: Budapest, Long Beach, and Zurich and Basel. It overestimated disease in Budapest
+and Long Beach (by about 10 and 5 percentage points on average) and underestimated it in the Swiss
+group (by about 7). The measurements were the same. The hospital had changed.
+
+Every patient in the study had a coronary angiogram, and that reading is the label: a patient counts
+as having disease when a major artery is narrowed by more than half its diameter.
+
+Two things in this project follow from that paper:
+
+- **One hospital only.** A model that shifted between sites in 1989 is a warning against pooling
+  them without care, so this repo uses the Cleveland file alone (see Design decisions).
+- **These are patients someone already sent for an angiogram.** That is a sicker group than the
+  general population, which is listed under Limitations.
+
 ## Data
 
 `data/raw/processed.cleveland.data` is the processed Cleveland file from the UCI Heart Disease dataset: 303 patients, 13 features and the label `num`.
