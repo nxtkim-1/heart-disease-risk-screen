@@ -4,6 +4,34 @@ An educational heart-disease risk screen on the UCI Cleveland data. It is not a 
 
 Status: in progress, target release `v1.0` on Nov 14, 2026. The loader, the train/test split, the preprocessing pipeline, a majority-class baseline, a random forest and a local Streamlit app skeleton are done. Logistic regression and figures come next. The results table below has majority-class and random-forest numbers; logistic regression is still TBD.
 
+## Architecture
+
+The constraint this project is built around: **if the data file changes, the run stops; and every number in the repository comes from the code in the repository.**
+
+```mermaid
+%%{init: {"theme": "base", "themeVariables": {"primaryColor": "#f2f5ff", "primaryBorderColor": "#445566", "primaryTextColor": "#111111", "lineColor": "#333333", "fontSize": "15px"}}}%%
+flowchart TD
+  RAW["Cleveland file<br/>303 patients"] --> CK["Hash + notice check"]
+  CK --> LD["Schema-validated loader"]
+  LD --> SP["Fixed stratified split"]
+  SP --> PP["Preprocessing<br/>train-only fit"]
+  PP --> TR["Baseline + random forest"]
+  TR --> MJ[("metrics.json<br/>committed + tested")]
+  TR --> FIG["Figures"]
+  SP --> APP["Streamlit app"]
+  linkStyle default stroke:#333333,stroke-width:1.5px,color:#111111
+```
+
+1. The loader checks the file's hash and attribution notice, then parses each row against a typed schema; unknown codes, out-of-bounds values and stray `?` markers stop the load with the line number.
+2. The split is fixed (20%, stratified, seed 42), so every model is scored on the same 61 patients and model differences cannot come from the split.
+3. Preprocessing lives inside the model's Pipeline, so fill values, scaling and encoding are learned from training rows only.
+4. The first model is a majority-class baseline (ROC AUC 0.5, sensitivity 0). Any real model has to beat it, and the committed metrics prove it did.
+5. `reports/metrics.json` is committed and tested against a fresh run, so the numbers on this page always come from the code on this page. CI runs pytest and a gitleaks scan over the full git history on every push.
+
+Current results (test set, 61 patients): majority baseline ROC AUC 0.50 / sensitivity 0.00; random forest ROC AUC 0.944, sensitivity 0.929, specificity 0.818; 5-fold CV ROC AUC 0.896 +/- 0.028 (reports/metrics.json).
+
+Design decisions and limits: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+
 ## Case study: the 1989 paper behind the data
 
 ![Greyscale X-ray of the left coronary artery filled with dye, with two arrows marking narrowed sections](docs/coronary_angiogram.jpg)
